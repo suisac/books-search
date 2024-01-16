@@ -18,7 +18,6 @@ const Search = (props) => {
             <Form.Control
                 placeholder="Search..."
                 aria-label="Search Input"
-                aria-describedby="basic-addon2"
                 value={value} 
                 onChange={(e)=>setValue(e.target.value)} 
             />

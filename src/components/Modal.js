@@ -11,7 +11,7 @@ const ModalComponent = (props) => {
     }
 
     useEffect(()=>{
-        if(props?.show)
+        if(props?.show && props?.authorId)
             fetchData();
     },[props?.show])
 
@@ -23,7 +23,7 @@ const ModalComponent = (props) => {
 
   return (
     <Modal show={props?.show} onHide={()=>handleClose()} centered>
-      <Modal.Body closeButton>
+      <Modal.Body >
         <div className="d-flex align-items-center">
           <Image src={AUTHOR_IMG_API(props?.authorId)} alt='Mark Twain' className="mr-3 ml-3" rounded style={{ width: '150px', height: '150px' }} />
           <div className='author-title'>

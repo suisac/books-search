@@ -35,17 +35,17 @@ const Body=(()=>{
 
 
     return(
-        <div class="container text-center">
-            <div class="row">
-                <div class="col search-margin">
+        <div className="container text-center">
+            <div className="row">
+                <div className="col search-margin">
                     <Search setSearchText={setSearch} />
                 </div>
             </div>
             <div>
                 {showModal && <Modal show={showModal} setShow={setShowModal} authorId={authorId}/>}
             </div>
-            <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-1">
-                {books?.map((book)=>{
+            <div className="row row-cols-lg-5 row-cols-md-3 row-cols-sm-1">
+                {books && books?.map((book)=>{
                     return(
                         <Books bookInfo={book} setShowModal={setShowModal} setAuthorId={setAuthorId}/>                       
                     )})}                
