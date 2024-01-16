@@ -1,40 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { BOOK_API } from '../utils/constant';
+import { BOOK_API, SEARCH_API } from '../utils/constant';
 import Books from './Books';
 import Search from './Search';
 
 const Body=(()=>{
 
     const [books, setBooks]= useState([]);
+    const [search, setSearch]=useState('');
+    const [pageNo, setPageNo]=useState(1);
 
     useEffect(()=>{
         fetchData();
-    },[])
+    },[search])
 
     const fetchData=async()=>{
-        const data= await fetch(BOOK_API);
+        const data= await fetch(SEARCH_API(search,pageNo));
         const json=await data.json();
-        setBooks(json?.reading_log_entries);
+        setBooks(json?.docs);
     }
     useEffect(()=>{
         console.log(!books);
       },[books])
 
-    console.log(books);
+    console.log(search);
 
     return(
         <div class="container text-center">
             <div class="row">
                 <div class="col search-margin">
-                    <Search/>
+                    <Search searchText={search} setSearchText={setSearch}/>
                 </div>
             </div>
-            <div class="row row-cols-5">
+            <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-1">
                 {books?.map((book)=>{
                     return(
                         <Books bookInfo={book}/>                       
                     )})}                
             </div>
+            {books.length>0?
+                (<div className="prev-next-btn">
+                <button>
+                    Previous
+                </button>
+                <button>
+                    Next
+                </button>
+                </div>)
+                :
+                (
+                    <div></div>
+                )
+            }
+            
       </div>
     )
 })

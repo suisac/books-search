@@ -9,6 +9,7 @@
   background-color: #D3D3D3;
   width:180px;
   height:240px;
+  margin-left:30px;
 }
 
 .image-class{
@@ -16,9 +17,9 @@
   height:240px;
 }
 
-.marginLeft{
+/* .marginLeft{
   margin-left:30px;
-}
+} */
 
 .search-margin{
   margin-bottom: 40px;
@@ -26,3 +27,8 @@
 }
 
 
+.prev-next-btn{
+  display:flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}

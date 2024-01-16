@@ -14,7 +14,7 @@ const Books=(props)=> {
         return()=>clearTimeout(timer);
     },[])
 
-    const coverId=props?.bookInfo?.work?.cover_edition_key;
+    const coverId=props?.bookInfo?.cover_edition_key;
 
   return (
     <div className="book-card">

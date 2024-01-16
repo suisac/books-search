@@ -1,12 +1,18 @@
 import React,{useState, useEffect} from 'react'
 
-const Search = () => {
+const Search = (props) => {
     const [value, setValue]=useState('');
+
+    const handleClick=()=>{
+        let text=value;
+        let searchText=text.split(' ').join('+');
+        props.setSearchText(searchText);
+    }
 
   return (
     <div>
         <input type='text' value={value} onChange={(e)=>setValue(e.target.value)} />
-        <button>Go</button>
+        <button onClick={()=>{handleClick()}}>Go</button>
     </div>
   )
 }
