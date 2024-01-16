@@ -17,7 +17,7 @@ const Books=(props)=> {
 
     const coverId=props?.bookInfo?.cover_edition_key;
     const title=props?.bookInfo?.title?.substring(0,20)+'...';
-    const author=props?.bookInfo?.author_name?.join(',').substring(0,30)+'...';
+    const author=props?.bookInfo?.author_name[0].substring(0,20)+'...';
 
   return (
     <div className="book-card">
@@ -34,7 +34,7 @@ const Books=(props)=> {
         }
         
         <div>
-            <h5>{title}</h5>
+            <h5 className='book-title'>{title}</h5>
         </div>
         <div>
             {author? <p style={{cursor:'pointer'}} onClick={()=>props?.setShowModal(true)}>{author}</p>:'---'}

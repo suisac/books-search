@@ -1,4 +1,7 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect} from 'react';
+import  InputGroup from 'react-bootstrap/InputGroup';
+import  Form from 'react-bootstrap/Form';
+import  Button from 'react-bootstrap/Button';
 
 const Search = (props) => {
     const [value, setValue]=useState('');
@@ -10,9 +13,20 @@ const Search = (props) => {
     }
 
   return (
-    <div>
-        <input type='text' value={value} onChange={(e)=>setValue(e.target.value)} />
-        <button onClick={()=>{handleClick()}}>Go</button>
+    <div className='search-margin'>
+        <InputGroup className="mb-2" size='sm'>
+            <Form.Control
+                placeholder="Search..."
+                aria-label="Search Input"
+                aria-describedby="basic-addon2"
+                value={value} 
+                onChange={(e)=>setValue(e.target.value)} 
+            />
+            <Button variant="outline-secondary" id="button-addon2" color='blue' onClick={()=>{handleClick()}}>
+                Go
+            </Button>
+      </InputGroup>
+
     </div>
   )
 }

@@ -15,11 +15,12 @@
 .image-class{
   width:180px;
   height:240px;
+  border-radius:10%;
 }
 
 .search-margin{
-  margin-bottom: 40px;
-  margin-top:40px;
+  margin: 40px;
+
 }
 
 
@@ -31,4 +32,8 @@
 
 .no-result{
   font-size:large;
+}
+
+.book-title{
+  margin-top:10px
 }

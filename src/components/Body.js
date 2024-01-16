@@ -11,6 +11,7 @@ const Body=(()=>{
     const [pageNo, setPageNo]=useState(1);
     const [maxPage, setMaxPage]=useState(1);
     const [showModal, setShowModal]=useState(false);
+    const [authorId, setAuthorId]=useState('');
 
     useEffect(()=>{
         fetchData();
@@ -31,6 +32,8 @@ const Body=(()=>{
     const handleNext=()=>{
         setPageNo(pageNo+1);
     }
+
+    //const ha
 
 
     return(
