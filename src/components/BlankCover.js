@@ -2,7 +2,7 @@ import React from 'react'
 
 const BlankCover = () => {
   return (
-    <div className="image-placeholder marginLeft">No Cover Found</div>
+    <div className="image-placeholder">No Cover Found</div>
   )
 }
 

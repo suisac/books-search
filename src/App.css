@@ -17,10 +17,6 @@
   height:240px;
 }
 
-/* .marginLeft{
-  margin-left:30px;
-} */
-
 .search-margin{
   margin-bottom: 40px;
   margin-top:40px;
@@ -31,4 +27,8 @@
   display:flex;
   justify-content: space-between;
   margin-bottom: 30px;
+}
+
+.no-result{
+  font-size:large;
 }

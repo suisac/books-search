@@ -2,53 +2,65 @@ import React, { useEffect, useState } from 'react';
 import { BOOK_API, SEARCH_API } from '../utils/constant';
 import Books from './Books';
 import Search from './Search';
+import Modal from './Modal';
 
 const Body=(()=>{
 
     const [books, setBooks]= useState([]);
     const [search, setSearch]=useState('');
     const [pageNo, setPageNo]=useState(1);
+    const [maxPage, setMaxPage]=useState(1);
+    const [showModal, setShowModal]=useState(false);
 
     useEffect(()=>{
         fetchData();
-    },[search])
+    },[search,pageNo])
 
     const fetchData=async()=>{
-        const data= await fetch(SEARCH_API(search,pageNo));
+
+        const data= await fetch(SEARCH_API(search||'all&mode=everything',pageNo));
         const json=await data.json();
         setBooks(json?.docs);
+        setMaxPage(Math.ceil(json?.numFound/20))
     }
-    useEffect(()=>{
-        console.log(!books);
-      },[books])
 
-    console.log(search);
+    const handlePrev=()=>{
+        setPageNo(pageNo-1);
+    }
+
+    const handleNext=()=>{
+        setPageNo(pageNo+1);
+    }
+
 
     return(
         <div class="container text-center">
             <div class="row">
                 <div class="col search-margin">
-                    <Search searchText={search} setSearchText={setSearch}/>
+                    <Search setSearchText={setSearch} />
                 </div>
+            </div>
+            <div>
+                {showModal && <Modal show={showModal} setShow={setShowModal}/>}
             </div>
             <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-1">
                 {books?.map((book)=>{
                     return(
-                        <Books bookInfo={book}/>                       
+                        <Books bookInfo={book} setShowModal={setShowModal}/>                       
                     )})}                
             </div>
             {books.length>0?
                 (<div className="prev-next-btn">
-                <button>
+                <button disabled={pageNo===1} onClick={()=>{handlePrev()}}>
                     Previous
                 </button>
-                <button>
+                <button disabled={pageNo===maxPage} onClick={()=>{handleNext()}}>
                     Next
                 </button>
                 </div>)
                 :
                 (
-                    <div></div>
+                    <div className='no-result'> {search? 'No Books Found!':'Books Loading... Please Wait'}</div>
                 )
             }
             
@@ -57,11 +69,3 @@ const Body=(()=>{
 })
 
 export default Body;
-
-// const data= await fetch(MENU_API(resId));
-// const json= await data.json();
-// setResName(json?.data?.cards[0]?.card?.card?.info?.name);
-// setCuisine(json?.data?.cards[0]?.card?.card?.info?.cuisines.join(", "));
-// setRating(json?.data?.cards[0]?.card?.card?.info?.avgRating);
-// const itemMenus= json?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c)=>c.card?.card?.["@type"]==="type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
-// setMenuItems(itemMenus);
