@@ -1,26 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Image } from 'react-bootstrap';
+import { AUTHOR_IMG_API, AUTHOR_API } from '../utils/constant';
 
 const ModalComponent = (props) => {
+
+    const [authorDetails, setAuthorDetails]=useState([]);
 
     const handleClose=()=>{
         props.setShow(false)
     }
 
-    const Biography='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac justo euismod, dignissim nunc nec, convallis tortor. In hac habitasse platea dictumst. Sed at fermentum quam. Proin auctor augue vitae arcu dictum, eu tempor velit luctus. Integer fermentum, justo ut bibendum ultrices, ex dolor feugiat nulla, vel gravida justo arcu id augue. Pellentesque vel augue quis libero dignissim pellentesque eget et enim. Sed volutpat, metus in dapibus varius, urna metus facilisis justo, ut venenatis nisl quam vel nisl. Curabitur id nisi vitae velit viverra tincidunt nec eu justo. Ut tincidunt tincidunt dolor, ac sagittis urna facilisis vitae. Fusce hendrerit malesuada lacus, eget ultrices justo ultricies ut. Vivamus pellentesque augue at lacinia cursus. Curabitur a justo vel purus efficitur egestas.';
+    useEffect(()=>{
+        if(props?.show)
+            fetchData();
+    },[props?.show])
+
+    const fetchData=async()=>{
+        const data= await fetch(AUTHOR_API(props?.authorId));
+        const json=await data.json();
+        setAuthorDetails([json?.personal_name, json?.bio?.value||json?.bio]);
+    }
 
   return (
-    <Modal show={props?.show} onHide={handleClose} centered>
+    <Modal show={props?.show} onHide={()=>handleClose()} centered>
       <Modal.Body closeButton>
         <div className="d-flex align-items-center">
-          <Image src={'https://covers.openlibrary.org/a/olid/OL23919A-M.jpg'} alt='Mark Twain' className="mr-3 ml-3" rounded style={{ width: '150px', height: '150px' }} />
-          <div className=''>
-            <h2>Mark Twain</h2>
-            <p><strong>Age:</strong> 20</p>           
+          <Image src={AUTHOR_IMG_API(props?.authorId)} alt='Mark Twain' className="mr-3 ml-3" rounded style={{ width: '150px', height: '150px' }} />
+          <div className='author-title'>
+            <h2>{authorDetails && authorDetails[0]}</h2>         
           </div>
         </div>
             
-            <p><strong>Biography:</strong>{Biography} </p>
+            <p>{authorDetails && authorDetails[1]} </p>
 
       </Modal.Body>
       <Modal.Footer>

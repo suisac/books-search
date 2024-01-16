@@ -33,8 +33,6 @@ const Body=(()=>{
         setPageNo(pageNo+1);
     }
 
-    //const ha
-
 
     return(
         <div class="container text-center">
@@ -44,12 +42,12 @@ const Body=(()=>{
                 </div>
             </div>
             <div>
-                {showModal && <Modal show={showModal} setShow={setShowModal}/>}
+                {showModal && <Modal show={showModal} setShow={setShowModal} authorId={authorId}/>}
             </div>
             <div class="row row-cols-lg-5 row-cols-md-3 row-cols-sm-1">
                 {books?.map((book)=>{
                     return(
-                        <Books bookInfo={book} setShowModal={setShowModal}/>                       
+                        <Books bookInfo={book} setShowModal={setShowModal} setAuthorId={setAuthorId}/>                       
                     )})}                
             </div>
             {books.length>0?
