@@ -32,7 +32,7 @@ const ModalComponent = (props) => {
         </div>
             
             <p>{authorDetails && authorDetails[1]} </p>
-
+            {authorDetails.length==0 && 'No info found!'}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>

@@ -3,6 +3,7 @@ import { BOOK_API, SEARCH_API } from '../utils/constant';
 import Books from './Books';
 import Search from './Search';
 import Modal from './Modal';
+import { generatePage } from './PageNumber';
 
 const Body=(()=>{
 
@@ -14,8 +15,13 @@ const Body=(()=>{
     const [authorId, setAuthorId]=useState('');
 
     useEffect(()=>{
+        setPageNo(1);
         fetchData();
-    },[search,pageNo])
+    },[search])
+
+    useEffect(()=>{
+        fetchData();
+    },[pageNo])
 
     const fetchData=async()=>{
 
@@ -26,11 +32,11 @@ const Body=(()=>{
     }
 
     const handlePrev=()=>{
-        setPageNo(pageNo-1);
+        setPageNo((prevPage)=>Math.max(1,prevPage-1));
     }
 
     const handleNext=()=>{
-        setPageNo(pageNo+1);
+        setPageNo((prevPage)=>Math.min(maxPage,prevPage+1));
     }
 
 
@@ -55,6 +61,7 @@ const Body=(()=>{
                 <button disabled={pageNo===1} onClick={()=>{handlePrev()}}>
                     Previous
                 </button>
+                {generatePage(setPageNo,pageNo,maxPage)}
                 <button disabled={pageNo===maxPage} onClick={()=>{handleNext()}}>
                     Next
                 </button>
